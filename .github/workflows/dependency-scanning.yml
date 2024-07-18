@@ -34,6 +34,9 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
+        
+      - name: Create libs directory if it does not exist
+        run: mkdir -p app/libs
 
       - name: Build with Gradle
         run: ./gradlew clean build --stacktrace --info
@@ -41,8 +44,8 @@ jobs:
       - name: Run OWASP Dependency-Check
         run: ./gradlew dependencyCheckAnalyze --stacktrace --info
 
-      - name: Upload Dependency Scanning Report
-        uses: actions/upload-artifact@v2
+      - name: Upload Dependency Check Report
+        uses: actions/upload-artifact@master
         with:
-          name: dependency-scanning-report
-          path: build/reports/dependency-check-report.html
+           name: Dependency Check report
+           path: ${{github.workspace}}/reports
