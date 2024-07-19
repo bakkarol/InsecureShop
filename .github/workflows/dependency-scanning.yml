@@ -67,6 +67,9 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
+        
+      - name: Create libs directory if it does not exist
+        run: mkdir -p app/libs
 
       - name: Run OWASP Dependency-Check
         run: ./gradlew :app:dependencyCheckAnalyze --stacktrace --info
