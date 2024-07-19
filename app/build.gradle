@@ -51,6 +51,7 @@ dependencies {
 }
 
 dependencyCheck {
-    //failBuildOnCVSS = 7
+    format = ['HTML', 'XML']
+    outputDirectory = "$buildDir/reports/dependency-check"
     suppressionFiles = ['dependency-check-suppress.xml']
 }
