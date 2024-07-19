@@ -1,2 +1,8 @@
 rootProject.name='InsecureShop'
 include ':app'
+
+buildCache {
+    local {
+        enabled = true
+    }
+}
