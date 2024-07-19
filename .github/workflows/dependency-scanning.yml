@@ -85,25 +85,33 @@ jobs:
 
   secrets_scanning:
     runs-on: ubuntu-latest
-    needs: build
-
     steps:
-      - name: Checkout code
-        # uses: actions/checkout@v3
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }}
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Secret Scanning
+      uses: trufflesecurity/trufflehog@main
+      with:
+        extra_args: --only-verified
+    
+    # steps:
+    #   - name: Checkout code
+    #     # uses: actions/checkout@v3
+    #     uses: actions/checkout@v2
+    #     with:
+    #       fetch-depth: 0
+    #       ref: ${{ github.head_ref }}
       
-      - name: trufflehog-actions-scan
-        uses: edplato/trufflehog-actions-scan@master
+    #   - name: trufflehog-actions-scan
+    #     uses: edplato/trufflehog-actions-scan@master
           
-      - name: Upload Secrets Scanning Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: Secrets Scanning Report
-          path: trufflehog-output.json
-
+    #   - name: Upload Secrets Scanning Report
+    #     uses: actions/upload-artifact@v3
+    #     with:
+    #       name: Secrets Scanning Report
+    #       path: trufflehog-output.json
+    
 
 # //*
 # jobs:
