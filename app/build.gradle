@@ -51,7 +51,7 @@ dependencies {
 }
 
 dependencyCheck {
-    format = ['HTML', 'XML']
-    outputDirectory = "$buildDir/reports/dependency-check"
+    // format = ['HTML', 'XML']
+    // outputDirectory = "$buildDir/reports/dependency-check"
     suppressionFiles = ['dependency-check-suppress.xml']
 }
