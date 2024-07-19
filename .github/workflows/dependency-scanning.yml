@@ -38,6 +38,9 @@ jobs:
       - name: Create libs directory if it does not exist
         run: mkdir -p app/libs
 
+      - name: Clean the build directory
+        run: ./gradlew clean
+
       - name: Build with Gradle
         run: ./gradlew clean build --stacktrace --info
 
