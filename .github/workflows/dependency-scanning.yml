@@ -91,19 +91,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Set up Python environment
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
-
-      - name: Install truffleHog
-        run: |
-          pip install trufflehog
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-        
       - name: Run TruffleHog for secrets scanning
-        run: trufflehog --json . > trufflehog-output.json
-
+        uses: trufflesecurity/trufflehog-actions-scan@v3
+        with:
+          scan_depth: 50  # Example: you can adjust the depth as needed
+          output_format: json
+          output_file: trufflehog-output.json
+          
       - name: Upload Secrets Scanning Report
         uses: actions/upload-artifact@v3
         with:
