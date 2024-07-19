@@ -83,6 +83,24 @@ jobs:
           name: Dependency Check report
           path: ${{github.workspace}}/app/build/reports/dependency-check/dependency-check-report.html
 
+  secrets_scanning:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run TruffleHog for secrets scanning
+        run: |
+          pip install truffleHog
+          stdbuf -oL truffleHog --json . > trufflehog-output.json
+
+      - name: Upload Secrets Scanning Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: Secrets Scanning Report
+          path: trufflehog-output.json
 
 
 # //*
