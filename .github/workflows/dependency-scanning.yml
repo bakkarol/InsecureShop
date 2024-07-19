@@ -98,11 +98,11 @@ jobs:
 
       - name: Install truffleHog
         run: |
-          pip install truffleHog
+          pip install trufflehog
           echo "$HOME/.local/bin" >> $GITHUB_PATH
         
       - name: Run TruffleHog for secrets scanning
-        run: truffleHog --json . > trufflehog-output.json
+        run: trufflehog --json . > trufflehog-output.json
 
       - name: Upload Secrets Scanning Report
         uses: actions/upload-artifact@v3
