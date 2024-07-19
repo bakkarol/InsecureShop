@@ -89,14 +89,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Run TruffleHog for secrets scanning
-        uses: trufflesecurity/trufflehog-actions-scan@v3
+        # uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
-          scan_depth: 50  # Example: you can adjust the depth as needed
-          output_format: json
-          output_file: trufflehog-output.json
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+      
+      - name: trufflehog-actions-scan
+        uses: edplato/trufflehog-actions-scan@master
           
       - name: Upload Secrets Scanning Report
         uses: actions/upload-artifact@v3
