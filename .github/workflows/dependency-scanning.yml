@@ -73,12 +73,15 @@ jobs:
 
       - name: Run OWASP Dependency-Check
         run: ./gradlew :app:dependencyCheckAnalyze --stacktrace --info
+ 
+      - name: List Generated Report Files
+        run: ls -l ${{github.workspace}}/app/build/reports/dependency-check
 
       - name: Upload Dependency Check Report
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v3
         with:
           name: Dependency Check report
-          path: ${{github.workspace}}/app/build/reports/dependency-check-report.html
+          path: ${{github.workspace}}/app/build/reports/dependency-check/dependency-check-report.html
 
 
 
