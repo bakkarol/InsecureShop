@@ -42,7 +42,8 @@ jobs:
         run: ./gradlew clean
 
       - name: Build with Gradle
-        run: ./gradlew clean build --build-cache --stacktrace --info
+        run: ./gradlew :app:clean :app:build
+        # run: ./gradlew clean build --build-cache --stacktrace --info
 
       - name: Run OWASP Dependency-Check
         run: ./gradlew dependencyCheckAnalyze --stacktrace --info
