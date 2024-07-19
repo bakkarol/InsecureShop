@@ -84,32 +84,44 @@ jobs:
           path: ${{github.workspace}}/app/build/reports/dependency-check/dependency-check-report.html
 
   secrets_scanning:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      # with:
-      #   fetch-depth: 0
-    # - name: Secret Scanning
+    # runs-on: ubuntu-latest
+    # steps:
+    # - name: Checkout code
+    #   uses: actions/checkout@v4
+    #   # with:
+    #   #   fetch-depth: 0
+    # # - name: Secret Scanning
+    # #   uses: trufflesecurity/trufflehog@main
+    # #   with:
+    # #     extra_args: --only-verified
+    
+    # - name: Run TruffleHog for secrets scanning
     #   uses: trufflesecurity/trufflehog@main
     #   with:
-    #     extra_args: --only-verified
-    
-    - name: Run TruffleHog for secrets scanning
-      uses: trufflesecurity/trufflehog@main
-      with:
-        scan_depth: 50  
-        output_format: json
-        output_file: trufflehog-output.json
+    #     scan_depth: 50  
+    #     output_format: json
+    #     output_file: trufflehog-output.json
 
-    - name: List Generated Report Files
-      run: ls -R
+    # - name: List Generated Report Files
+    #   run: ls -R
 
-    - name: Upload Secrets Scanning Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: Secrets Scanning Report
-        path: '**/*.json'
+    # - name: Upload Secrets Scanning Report
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: Secrets Scanning Report
+    #     path: '**/*.json'
+   
+    name: gitleaks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+          ref: ${{ github.head_ref }}
+      - name: trufflehog-actions-scan
+        uses: edplato/trufflehog-actions-scan@master
+
 
 # //*
 # jobs:
