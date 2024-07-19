@@ -21,7 +21,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '8'
-
+          
+      - name: Check JAVA_HOME
+        run: echo $JAVA_HOME
+        
       - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
