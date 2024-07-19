@@ -58,4 +58,7 @@ dependencyCheck {
     formats = [org.owasp.dependencycheck.reporting.ReportGenerator.Format.HTML, org.owasp.dependencycheck.reporting.ReportGenerator.Format.XML]
     outputDirectory = "$buildDir/reports/dependency-check"
     suppressionFiles = ['dependency-check-suppress.xml']
+    analyzers {
+        assemblyEnabled = false  // Disabling .NET Assembly Analyzer
+    }
 }
