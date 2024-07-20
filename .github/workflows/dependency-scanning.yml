@@ -47,7 +47,7 @@ jobs:
         run: ./gradlew :app:build --stacktrace --info
 
       - name: Generate POM file
-        run: ./gradlew writeNewPom
+        run: ./gradlew :app:generatePom
 
       - name: List Generated Files
         run: ls -l ${{ github.workspace }}/app/build
