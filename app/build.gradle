@@ -32,7 +32,6 @@ android {
     lintOptions {
           abortOnError false
     }
-
 }
 
 dependencies {
@@ -50,10 +49,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'net.gotev:uploadservice:3.2.3'
 }
-
-// dependencyCheck {
-//     suppressionFiles = ['dependency-check-suppress.xml']
-// }
 
 dependencyCheck {
     formats = [org.owasp.dependencycheck.reporting.ReportGenerator.Format.HTML, org.owasp.dependencycheck.reporting.ReportGenerator.Format.XML]
@@ -99,7 +94,7 @@ task generatePom {
 publishing {
     publications {
         customLibrary(MavenPublication) {
-            from components.release
+            from components.android
         }
     }
 
