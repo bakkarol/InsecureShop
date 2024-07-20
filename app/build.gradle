@@ -65,23 +65,33 @@ dependencyCheck {
     }
 }
 
-task writeNewPom {
-    doLast {
-        pom {
-            project {
-                groupId 'org.example'
-                artifactId 'test'
-                version '1.0.0'
+publishing {
+    publications {
+        customLibrary(MavenPublication) {
+            from components.release // Ensure this is correct for your configuration
 
-                inceptionYear '2008'
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        distribution 'repo'
-                    }
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.implementation.allDependencies.each { dependency ->
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', dependency.group)
+                    dependencyNode.appendNode('artifactId', dependency.name)
+                    dependencyNode.appendNode('version', dependency.version)
                 }
             }
-        }.writeTo("$buildDir/newpom.xml")
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'InsecureShop'
+            url = layout.buildDirectory.dir("repo")
+        }
+    }
+}
+
+task writeNewPom {
+    doLast {
+        publishing.publications.customLibrary.pom.writeTo("$buildDir/newpom.xml")
     }
 }
