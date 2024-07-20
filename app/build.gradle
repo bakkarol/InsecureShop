@@ -95,3 +95,18 @@ task generatePom {
         }.writeTo("$buildDir/pom.xml")
     }
 }
+
+publishing {
+    publications {
+        customLibrary(MavenPublication) {
+            from components.release
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'InsecureShop'
+            url = layout.buildDirectory.dir("repo")
+        }
+    }
+}
