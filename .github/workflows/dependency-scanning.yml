@@ -46,17 +46,17 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew :app:build --stacktrace --info
 
-      - name: Generate POM file
-        run: ./gradlew :app:generatePom
+      # - name: Generate POM file
+      #   run: ./gradlew :app:generatePom
 
-      - name: List Generated Files
-        run: ls -l ${{ github.workspace }}/app/build
+      # - name: List Generated Files
+      #   run: ls -l ${{ github.workspace }}/app/build
 
-      - name: Upload POM file
-        uses: actions/upload-artifact@v3
-        with:
-          name: Generated POM
-          path: ${{ github.workspace }}/app/build/newpom.xml
+      # - name: Upload POM file
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Generated POM
+      #     path: ${{ github.workspace }}/app/build/newpom.xml
 
   dependency_check:
     runs-on: ubuntu-latest
