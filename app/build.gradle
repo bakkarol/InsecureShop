@@ -64,33 +64,34 @@ dependencyCheck {
     }
 }
 
-publishing {
-    publications {
-        customLibrary(MavenPublication) {
-            from components.release // Ensure this is correct for your configuration
-
-            pom.withXml {
-                def dependenciesNode = asNode().appendNode('dependencies')
-                configurations.implementation.allDependencies.each { dependency ->
-                    def dependencyNode = dependenciesNode.appendNode('dependency')
-                    dependencyNode.appendNode('groupId', dependency.group)
-                    dependencyNode.appendNode('artifactId', dependency.name)
-                    dependencyNode.appendNode('version', dependency.version)
+task generatePom {
+    doLast {
+        pom {
+            project {
+                groupId 'com.insecureshop'
+                artifactId 'app'
+                version '1.0.0'
+                
+                inceptionYear '2024'
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+                dependencies {
+                    configurations.implementation.allDependencies.each { dependency ->
+                        if (dependency.group) {
+                            dependency {
+                                groupId dependency.group
+                                artifactId dependency.name
+                                version dependency.version
+                            }
+                        }
+                    }
                 }
             }
-        }
-    }
-
-    repositories {
-        maven {
-            name = 'InsecureShop'
-            url = layout.buildDirectory.dir("repo")
-        }
-    }
-}
-
-task writeNewPom {
-    doLast {
-        publishing.publications.customLibrary.pom.writeTo("$buildDir/newpom.xml")
+        }.writeTo("$buildDir/pom.xml")
     }
 }
