@@ -59,45 +59,48 @@ dependencyCheck {
     }
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.release
+afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                // Use the correct component
+                from components.getByName("release")
 
-            groupId = 'com.example'
-            artifactId = 'insecureshop'
-            version = '1.0.0'
+                groupId = 'com.example'
+                artifactId = 'insecureshop'
+                version = '1.0.0'
 
-            pom {
-                name.set('InsecureShop')
-                description.set('An Intentionally designed Vulnerable Android Application built in Kotlin')
-                url.set('http://www.example.com/insecureshop')
+                pom {
+                    name.set('InsecureShop')
+                    description.set('An Intentionally designed Vulnerable Android Application built in Kotlin')
+                    url.set('http://www.example.com/insecureshop')
 
-                licenses {
-                    license {
-                        name.set('The Apache License, Version 2.0')
-                        url.set('http://www.apache.org/licenses/LICENSE-2.0.txt')
+                    licenses {
+                        license {
+                            name.set('The Apache License, Version 2.0')
+                            url.set('http://www.apache.org/licenses/LICENSE-2.0.txt')
+                        }
                     }
-                }
-                developers {
-                    developer {
-                        id.set('developerId')
-                        name.set('Developer Name')
-                        email.set('developer@example.com')
+                    developers {
+                        developer {
+                            id.set('developerId')
+                            name.set('Developer Name')
+                            email.set('developer@example.com')
+                        }
                     }
-                }
-                scm {
-                    connection.set('scm:git:git://example.com/insecureshop.git')
-                    developerConnection.set('scm:git:ssh://example.com/insecureshop.git')
-                    url.set('http://example.com/insecureshop/')
+                    scm {
+                        connection.set('scm:git:git://example.com/insecureshop.git')
+                        developerConnection.set('scm:git:ssh://example.com/insecureshop.git')
+                        url.set('http://example.com/insecureshop/')
+                    }
                 }
             }
         }
-    }
 
-    repositories {
-        maven {
-            url = uri("${buildDir}/repo")
+        repositories {
+            maven {
+                url = uri("${buildDir}/repo")
+            }
         }
     }
 }
