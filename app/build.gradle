@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.owasp.dependencycheck'
-apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 29
@@ -56,52 +55,5 @@ dependencyCheck {
     suppressionFiles = file('dependency-check-suppress.xml').exists() ? ['dependency-check-suppress.xml'] : []
     analyzers {
         assemblyEnabled = false  // Disable .NET Assembly Analyzer
-    }
-}
-
-task generatePom {
-    doLast {
-        pom {
-            project {
-                groupId 'com.insecureshop'
-                artifactId 'app'
-                version '1.0.0'
-                
-                inceptionYear '2024'
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        distribution 'repo'
-                    }
-                }
-                dependencies {
-                    configurations.implementation.allDependencies.each { dependency ->
-                        if (dependency.group) {
-                            dependency {
-                                groupId dependency.group
-                                artifactId dependency.name
-                                version dependency.version
-                            }
-                        }
-                    }
-                }
-            }
-        }.writeTo("$buildDir/pom.xml")
-    }
-}
-
-publishing {
-    publications {
-        customLibrary(MavenPublication) {
-            from components.android
-        }
-    }
-
-    repositories {
-        maven {
-            name = 'InsecureShop'
-            url = layout.buildDirectory.dir("repo")
-        }
     }
 }
