@@ -106,6 +106,27 @@ jobs:
           name: Dependency Check report
           path: ${{github.workspace}}/app/build/reports/dependency-check/dependency-check-report.html
 
+  dependency-check-V2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run OWASP Dependency Check
+        uses: dependency-check/runner-action@v2
+        with:
+          project: "Express.js Application"
+          scan: "."
+          format: "ALL"
+          out: "dependency-check-report"
+
+      - name: Upload Dependency Check Report v2
+        uses: actions/upload-artifact@v3
+        with:
+          name: Dependency Check report
+          path: ${{github.workspace}}/app/build/reports/dependency-check/dependency-check-report_V2.html
+          
   # secrets_scanning:
     # runs-on: ubuntu-latest
     # steps:
