@@ -46,8 +46,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Dependency Check report
-          # path: ${{github.workspace}}/app/build/reports/dependency-check/dependency-check-report.html
-          path: ${{github.workspace}}/reports/dependency-check-report.html
+          path: ${{github.workspace}}/app/build/reports/dependency-check/dependency-check-report.html
           
   # secrets_scanning:
     # runs-on: ubuntu-latest
