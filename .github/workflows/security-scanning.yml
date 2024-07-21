@@ -77,6 +77,8 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        with:
+          additional-trap-steps: '[ "run: ./gradlew build --stacktrace --info" ]'
 
       - name: Upload CodeQL Report
         uses: actions/upload-artifact@v3
